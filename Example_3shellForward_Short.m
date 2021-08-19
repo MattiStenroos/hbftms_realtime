@@ -30,7 +30,7 @@ clear
 % github.com/MattiStenroos/hbf_sampledata
 
 % path to the head geometry data --- put your path here:
-sampledatapath = '~/gitwork/hbf_sampledata/hbf_samplehead_3shell_wh';
+sampledatapath = '~/github/hbf_sampledata/hbf_samplehead_3shell_wh';
 load(sampledatapath,'bmeshes','cortex');
 % -> bmeshes, cortex
 
@@ -64,9 +64,10 @@ Phi = single(hbf_LFM_Phi_LC(bmeshes,Tphi_full,cortex.p));
 clear D Tphi_full
 
 %% Related to Eq. 4 & 5: weighted potentials
-
+profile on
 Phiw = hbftms_WeightedPhi(bmeshes,Phi,ci,co);
-
+profile off
+profile report
 %% Eq. 6 & 7: dipoles for fast beta integrals
 
 [betaQpos,betaQmom] = hbftms_BetaQDipoles(bmeshes);

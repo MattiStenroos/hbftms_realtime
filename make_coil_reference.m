@@ -9,7 +9,10 @@ function  coil  = make_coil_reference()
 %   
 %   DISCLAIMER: the function has been tested and verified only with the default parameters.
 %
-%   v191002 (c) Matti Stenroos (matti.stenroos@aalto.fi)
+%   v210819 (c) Matti Stenroos (matti.stenroos@aalto.fi)
+
+% changes:
+% v210819: bugfix ('Nz' and 'el' are the same thing, changed to 'Nz')
 
 %specs of the coil model (in mm)
 Ri=26; %inner radius
@@ -21,7 +24,7 @@ wo=3;  %coil casing thickness = wire offset from the bottom of the coil
 
 %discretization parameters (lengths in mm)
 ew=1;  %element side length
-el=7;  %number of layers in z direction
+Nz=7;  %number of layers in z direction
 sd=10; %sub-discretization of each element
 %DISCLAIMER: the function has been tested & validated with only these
 %parameters.
@@ -107,9 +110,9 @@ Qsetnz=Qset(indnz);
 ptemp=[bsxfun(@plus,pcsetnz,ol);bsxfun(@plus,pcsetnz,or)];
 Qtemp=[-Qsetnz; Qsetnz];
 % now make layers & change to meters
-eh=wh/el;
+eh=wh/Nz;
 zlevels=wo+(eh/2:eh:wh);
-Wtemp=Qtemp*(ew*1e-3)^2/el; %1 mm2 area, Nz layers with the same weight
+Wtemp=Qtemp*(ew*1e-3)^2/Nz; %1 mm2 area, Nz layers with the same weight
 
 % and build the pointset...
 Npl=numel(Wtemp);
